@@ -7,6 +7,8 @@ var rename = require('gulp-rename');
 
 var webserver = require('gulp-webserver');
 
+var gzip = require('gulp-gzip');
+
 
 
 //Webサーバー
@@ -48,5 +50,6 @@ gulp.task('jsmin', function(){
     gulp.src('js/*.js')
         .pipe(uglify({preserveComments: 'some'}))
         .pipe(rename({extname: '.min.js'}))
+        .pipe(gzip())
         .pipe(gulp.dest('js'));
 });
