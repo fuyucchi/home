@@ -15,6 +15,8 @@ var gzip = require('gulp-gzip');
 gulp.task('webserver', function() {
   gulp.src('./') //Webサーバーで表示するサイトのルートディレクトリを指定
     .pipe(webserver({
+      host: 'localhost',
+      port: 8000,
       livereload: true, //ライブリロードを有効に
       //directoryListing: true //ディレクトリ一覧を表示するか。オプションもあり
     }));
