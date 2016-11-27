@@ -46,7 +46,7 @@ $(function() {
       _t.scale.x = 1;
       _t.scale.y = 1;
 
-      var _al = (z < 3)? 0.3 + (z+1)*0.2: 1;
+      var _al = (z < 2)? 0.3 + (z+1)*0.3: 1;
       _t.alpha = _al;
       stage.addChild(_t);
       spritesArr.push(_t);
@@ -68,8 +68,8 @@ $(function() {
           var _tt = spritesArr[x + (z*20)];
 
             _tt.scale.x = _tt.scale.y = (z+1)*(0.29 + Math.cos(mc/5)*0.038) + 0.1;
-            _tt.position.x = (x - 10)* (9 + ((z+1)*82)) + (Math.sin(mc/7)*((z+2)*90))+(Math.cos(mc/5)*(z+1)*35) + (((z+2)*0.2)*120) + WIDTH/2;
-            _tt.position.y = Math.sin(mc + (x * 0.43)+((z+1)*0.56) ) * (20 + ((z+1)*77)) + ((z+1) * 68) + HEIGHT*0.11;
+            _tt.position.x = (x - 10)* (9 + ((z+1)*82)) + (Math.sin(mc/7)*((z+2)*110))+(Math.cos(mc/5)*(z+1)*35) + (((z+2)*0.2)*120) + WIDTH/2;
+            _tt.position.y = Math.sin(mc + (x * 0.43)+((z+1)*0.56) ) * (20 + ((z+1)*77)) + ((z+1) * 68) + HEIGHT*0.1;
           }
         }
 
