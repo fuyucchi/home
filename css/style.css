@@ -1,3 +1,38 @@
+html {
+  height: 100%;
+}
 body {
-  background-color: #eee;
+  margin: 0;
+  padding: 0;
+  background-color: #f4f4f4;
+  height: 100%;
+}
+.wrap {
+  position: relative;
+  height: 100%;
+}
+.webglscreen {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+}
+.logowrap {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+}
+.logo {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  margin: auto;
+  padding: 0;
+  max-width: 700px;
+  width: 80%;
+  max-height: 434px;
+  height: 55%;
+  background: url(../img/vi_logo_white.png) 50% 50% no-repeat;
+  background-size: contain;
 }
