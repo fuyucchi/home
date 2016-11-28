@@ -39,6 +39,9 @@ $(function() {
         for (var x = 0; x < 20; x++) {
             var _tx = z - 3;
             _tx = (_tx < 0) ? 0 : _tx;
+            if(z==0){
+              _tx = 3;
+            }
             var _t = new PIXI.Sprite(textureArr[_tx]);
             _t.anchor.x = 0.5;
             _t.anchor.y = 0.5;
@@ -47,7 +50,7 @@ $(function() {
             _t.scale.x = 1;
             _t.scale.y = 1;
 
-            var _al = (z < 2) ? 0.3 + (z + 1) * 0.3 : 1;
+            var _al = (z < 2)? 0.2 + (z+1)*0.3: 1;
             _t.alpha = _al;
             stage.addChild(_t);
             spritesArr.push(_t);
@@ -94,4 +97,8 @@ $(function() {
         }, 200);
     });
 
-}); 
+
+    setTimeout(function() {
+       window.location.href = "index2.html"
+     }, 11000);//11 sec
+});
