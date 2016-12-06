@@ -47,11 +47,11 @@
 
 <script>
 $(function() {
-  $.get('https://visiblic.com/srv/hello', function(data){
+  $.get('https://visiblic.com:3000/srv/hello', function(data){
     console.log(data);
   });
   $.ajax({
-    url:'https://visiblic.com/srv/hello',
+    url:'https://visiblic.com:3000/srv/hello',
     crossDomain: true,
     success: function(res) {
       console.log(res);
