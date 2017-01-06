@@ -10,9 +10,14 @@
     padding: 25px;
     text-align: center;
     font: 20pt bold 'Vollkorn';
-    color: #ccc;
+    color: #bbb;
 }
 
 .over{
+  color:#999;
   background-color: #eff;
+}
+.over{
+  background-color: #aaa;
+  color:#ddd;
 }

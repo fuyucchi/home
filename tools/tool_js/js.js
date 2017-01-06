@@ -13,20 +13,91 @@ function handleFileSelect(evt) {
             f.size, ' bytes, last modified: ',
             f.lastModifiedDate.toLocaleDateString(), '</li>');
     }
-    document.getElementById('list').innerHTML = '<ul>' + output.join('') + '</ul>';
+    document.getElementById('file_list').innerHTML = '<ul>' + output.join('') + '</ul>';
+
+    var reader = new FileReader();
+    //テキスト形式で読み込む
+    reader.readAsText(files[0]);
+
+    var vertex = [];
+    var texcoord = [];
+
+    var index = [];
+
+
+    reader.onload = function(ev){
+      var arr = reader.result.split(/\r\n|\r|\n/);//行ごと
+      for (var i =0; i < arr.length; i++){
+        var tempArr = arr[i].split(' ');
+        var _st = tempArr[0];
+        if(_st =='v'){
+          var _ov = {'x':tempArr[1], 'y':tempArr[2], 'z':tempArr[3] };
+          vertex.push(_ov);
+        } else if(_st == 'vt'){
+          var _ouv = {'u':tempArr[1], 'v':tempArr[2]};
+          texcoord.push(_ouv);
+        }else if(_st == 'f'){
+          var _tp = [];
+          for(t =1; t < 4; t++){
+            var _pointArr = tempArr[t].split('/');
+            _tp.push(_pointArr);// ３つづつ
+          }
+
+          index.push(_tp);//トライアングル数
+        }
+
+      }
+
+      console.log(vertex.length + " = " + texcoord.length);
+      console.log(index.length +" トライアングル");
+      var _r = "";
+      for (var u =0; u<vertex.length; u++){
+        _r += parseFloat(vertex[u].x) + ',\t';
+        _r += parseFloat(vertex[u].y) + ',\t';
+        _r += parseFloat(vertex[u].z) + ',\t\t';
+
+        _r += (Math.round (parseFloat(texcoord[u].u)* 10000) / 10000) + ',\t';
+        _r += (Math.round (parseFloat(texcoord[u].v)* 10000) / 10000)+ ',//\t\t('+u+')\n';
+      }
+
+      //テキストエリアに表示する
+      document.output.txt1.value = _r;
+
+
+      var _ir ='';
+
+      for (var j =0; j<index.length; j++){
+        console.log(index[j]);
+        for(var i=0; i< index[j].length; i++){
+          _ir += parseInt(index[j][i][0]) + ',\t';
+          _ir += parseInt(index[j][i][1]) + ',\t';
+          if(i+1 < index[j].length){
+            _ir += parseInt(index[j][i][2]) + ',\t\t\t';
+          }else{
+            _ir += parseInt(index[j][i][2]) + ',';
+          }
+
+        }
+        _ir += '//\t\t\t\t ('+(j+1)+' pol)\n';
+      }
+      //テキストエリアに表示する
+      document.output.txt2.value = _ir;
+
+      ///
+    }
+
     return false
 }
 
 function handleDragEnter(evt) {
     evt.stopPropagation();
     evt.preventDefault();
-
-
     dropZone.className ="over";
 }
 function handleDragOver(evt) {
-    // evt.stopPropagation();
+    evt.stopPropagation();
     evt.preventDefault();
+    dropZone.className ="drop";
         evt.dataTransfer.dropEffect = 'copy'; // Explicitly show this is a copy.
 }
 function handleDragOut(evt){
@@ -38,9 +109,9 @@ function handleDragOut(evt){
 
 // Setup the dnd listeners.
 
-// dropZone.addEventListener('dragenter', handleDragEnter, false);
-dropZone.addEventListener('drageover', handleDragOver, false);
-// dropZone.addEventListener('dragleave', handleDragOut, false);
+dropZone.addEventListener('dragenter', handleDragEnter, false);
+dropZone.addEventListener('dragover', handleDragOver, false);
+dropZone.addEventListener('dragleave', handleDragOut, false);
 dropZone.addEventListener('drop', handleFileSelect, false);
 
 
