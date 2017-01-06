@@ -28,9 +28,20 @@ gulp.task('webserver', function() {
  *
  * コマンド'gulp'で実行される
  */
-gulp.task('default', ['webserver']);
+gulp.task('default', ['webserver','watch_tools_css']);
 
 
+
+gulp.task('watch_tools_css',function() {
+  gulp.watch('tools/tools_css/*.less', ['csstools']);
+});
+
+gulp.task('csstools', function() {
+    gulp.src('tools/tools_css/*.less')
+      .pipe(plumber()) // lessのコンパイルでコケても終了しない
+      .pipe(less())
+      .pipe(gulp.dest('tools/tools_css/'))
+});
 
 
 
@@ -41,9 +52,7 @@ gulp.task('css', function() {
       .pipe(gulp.dest('css/'))
 });
 
-gulp.task('watch', function() {
-  gulp.watch('src/js/*.less', ['css']);
-});
+
 
 
 
