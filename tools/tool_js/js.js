@@ -69,12 +69,12 @@ function handleFileSelect(evt) {
       for (var j =0; j<index.length; j++){
         console.log(index[j]);
         for(var i=0; i< index[j].length; i++){
-          _ir += parseInt(index[j][i][0]) + ',\t';
-          _ir += parseInt(index[j][i][1]) + ',\t';
+          _ir += (parseInt(index[j][i][0])-1) + ',\t';
+          _ir += (parseInt(index[j][i][1])-1) + ',\t';
           if(i+1 < index[j].length){
-            _ir += parseInt(index[j][i][2]) + ',\t\t\t';
+            _ir += (parseInt(index[j][i][2])-1) + ',\t\t\t';
           }else{
-            _ir += parseInt(index[j][i][2]) + ',';
+            _ir += (parseInt(index[j][i][2])-1) + ',';
           }
 
         }
