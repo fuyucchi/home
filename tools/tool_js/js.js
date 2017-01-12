@@ -23,6 +23,7 @@ function handleFileSelect(evt) {
     var texcoord = [];
 
     var index = [];
+    var indexCon =[];
 
 
     reader.onload = function(ev){
@@ -41,7 +42,11 @@ function handleFileSelect(evt) {
           for(t =1; t < 4; t++){
             var _pointArr = tempArr[t].split('/');
             _tp.push(_pointArr);// ３つづつ
+
+            indexCon[parseInt(_pointArr[0])-1] = parseInt(_pointArr[1])-1;
+            console.log("--- " + indexCon[parseInt(_pointArr[0])-1] +" ← " + (parseInt(_pointArr[0])-1));
           }
+
 
           index.push(_tp);//トライアングル数
         }
@@ -56,8 +61,8 @@ function handleFileSelect(evt) {
         _r += parseFloat(vertex[u].y) + ',\t';
         _r += parseFloat(vertex[u].z) + ',\t\t';
 
-        _r += (Math.round (parseFloat(texcoord[u].u)* 10000) / 10000) + ',\t';
-        _r += (Math.round (parseFloat(texcoord[u].v)* 10000) / 10000)+ ',//\t\t('+u+')\n';
+        _r += (Math.round (parseFloat(texcoord[indexCon[u]].u)* 10000) / 10000) + ',\t';
+        _r += (Math.round (parseFloat(texcoord[indexCon[u]].v)* 10000) / 10000)+ ',//\t\t('+indexCon[u]+')\n';
       }
 
       //テキストエリアに表示する
@@ -69,12 +74,12 @@ function handleFileSelect(evt) {
       for (var j =0; j<index.length; j++){
         console.log(index[j]);
         for(var i=0; i< index[j].length; i++){
-          _ir += (parseInt(index[j][i][0])-1) + ',\t';
-          _ir += (parseInt(index[j][i][1])-1) + ',\t';
+          // _ir += (parseInt(index[j][i][0])-1) + ',\t';
+          // _ir += (parseInt(index[j][i][1])-1) + ',\t';
           if(i+1 < index[j].length){
-            _ir += (parseInt(index[j][i][2])-1) + ',\t\t\t';
+            _ir += (parseInt(index[j][i][0])-1) + ',\t\t';
           }else{
-            _ir += (parseInt(index[j][i][2])-1) + ',';
+            _ir += (parseInt(index[j][i][0])-1) + ',';
           }
 
         }
