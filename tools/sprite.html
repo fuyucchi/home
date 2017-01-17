@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+
+  <title>SPRITE SHEET XML converter 2017</title>
+  <meta name="description" content="tools">
+  <meta name="author" content="fuyu">
+
+  <link rel="stylesheet" href="tool_css/tools_style.css">
+
+  <!--[if lt IE 9]>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv.js"></script>
+  <![endif]-->
+</head>
+
+<body>
+
+  <h1>SPRITE SHEET XML Converter</h1>
+
+  <div class="example">
+    <div id="drop_zone">ここにXMLファイルをドロップ</div>
+    <output id="file_list"></output>
+  </div>
+
+  <div>
+    <form name="output">
+      <input name="baseSQ" value="4096" />
+      <input name="unitsize" value="512"/>
+      <p>
+        obcjective-c  no code
+      </p>
+    <textarea name="txt1" rows="33" cols="120" readonly></textarea>
+
+      <br  />
+      <!-- <p>
+        三角形インデックス
+      </p>
+      <textarea name="txt2" rows="24" cols="100" readonly></textarea> -->
+  </form>
+  </div>
+
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+
+  <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r83/three.min.js"></script> -->
+  <!-- <script src="tool_js/OBJLoader.js"></script> -->
+  <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r83/three.module.js"></script> -->
+  <script src="tool_js/xmlcon.js"></script>
+</body>
+</html>
