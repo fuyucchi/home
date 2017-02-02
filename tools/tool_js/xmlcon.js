@@ -37,7 +37,7 @@ function handleFileSelect(evt) {
 
 
         var inputAllSize = parseInt(document.output.baseSQ.value);
-        var inputBaseUnitSize = parseInt(document.output.unitsize.value);// ユニットサイズ
+        var inputBaseUnitSize = parseInt(document.output.unitsize.value);// ユニットサイズ　無視
 
 
 
@@ -47,6 +47,7 @@ function handleFileSelect(evt) {
 
 
         var calcScale = inputAllSize / masterBaseSize;
+        calcScale =1;
 
         // n  => name of the sprite
         // x  => sprite x pos in texture
@@ -72,13 +73,13 @@ function handleFileSelect(evt) {
             _t.offsetX = parseInt(_txml.attr('x'));
             _t.offsetY = parseInt(_txml.attr('y'));
 
-            _t.trimW = parseInt(_txml.attr('w'));
+            _t.trimW = parseInt(_txml.attr('w'));//uv上の幅
             _t.trimH = parseInt(_txml.attr('h'));
 
-            _t.trimLeft = parseInt(_txml.attr('oX'));
+            _t.trimLeft = parseInt(_txml.attr('oX'));//uv上で隠れてるpadding
             _t.trimTop = parseInt(_txml.attr('oY'));
 
-            _t.originalW = parseInt(_txml.attr('oW'));
+            _t.originalW = parseInt(_txml.attr('oW'));// 必ず正方形で使うこと
             _t.originalH = parseInt(_txml.attr('oH'));
 
 
@@ -96,21 +97,35 @@ function handleFileSelect(evt) {
 
       // _r += "GLfloat unitSize = " + ((calcScale * inputBaseUnitSize / inputAllSize).toFixed(12)) + ';\n\n';
 
-      _r += "//offsetX    \toffsetY    \ttrimLeft    \t    trimTop    \ttrimW    \ttrimH    \toriginalW    \torojinalH\t\t _count=" + ((spArr.length * 8)) + ';\n\n';
+      // _r += "//offsetX  \toffsetY  \ttrimLeft  \ttrimTop  \ttrimW  \ttrimH  \torojinalWH\t\t _count=" + ((spArr.length * 8)) + ';\n\n';
+      _r += "//SQoffsetX  \tSQoffsetY  \ttrimLeft/u  \ttrimTop/v  \ttrimLeft+trimW/u\ttrimTop+trimH/v\t/orojinalWH/all\t_count=" + ((spArr.length * 8)) + ';\n\n';
 
       for (var u =0; u<spArr.length; u++){
 
         var _a = spArr[u];
         // console.log((calcScale * _a.offsetX / masterBaseSize) );
 
-        _r += (calcScale * _a.offsetX / masterBaseSize).toFixed(7) + ',\t';
-        _r += (calcScale * _a.offsetY / masterBaseSize).toFixed(7) + ',\t';
-        _r += (calcScale * _a.trimLeft / masterBaseSize).toFixed(7) + ',\t';
-        _r += (calcScale * _a.trimTop / masterBaseSize).toFixed(7) + ',\t';
-        _r += (calcScale * _a.trimW / masterBaseSize).toFixed(7) + ',\t';
-        _r += (calcScale * _a.trimH / masterBaseSize).toFixed(7) + ',\t';
-        _r += (calcScale * _a.originalW / masterBaseSize).toFixed(7) + ',\t';
-        _r += (calcScale * _a.originalH / masterBaseSize).toFixed(7) + ',// no.'+ (u) + '\t' + _a.name +'\n';
+        // _r += (calcScale * _a.offsetX / masterBaseSize).toFixed(7) + ',\t';
+        // _r += (calcScale * _a.offsetY / masterBaseSize).toFixed(7) + ',\t';
+        // _r += (calcScale * _a.trimLeft / masterBaseSize).toFixed(7) + ',\t';
+        // _r += (calcScale * _a.trimTop / masterBaseSize).toFixed(7) + ',\t';
+        // _r += (calcScale * _a.trimW / masterBaseSize).toFixed(7) + ',\t';
+        // _r += (calcScale * _a.trimH / masterBaseSize).toFixed(7) + ',\t';
+        // // _r += (calcScale * _a.originalW / masterBaseSize).toFixed(7) + ',\t';
+        // _r += (calcScale * _a.originalH / masterBaseSize).toFixed(7) + ',// no.'+ (u) + '\t' + _a.name +'　'+_a.originalW+'/'+masterBaseSize+' \n';
+        //
+
+        var unitScale = _a.originalH / masterBaseSize;
+
+        // ((_a.offsetX - _a.trimLeft) / masterBaseSize).toFixed(7)
+        _r += (calcScale * (_a.offsetX - _a.trimLeft) / masterBaseSize).toFixed(7) + ',\t';
+        _r += (calcScale * (_a.offsetY - _a.trimTop) / masterBaseSize).toFixed(7) + ',\t';
+        _r += (1 * (_a.trimLeft-5) / _a.originalW).toFixed(7) + ',\t';
+        _r += (1 * (_a.trimTop-5) / _a.originalH).toFixed(7) + ',\t';
+        _r += (1 * (_a.trimLeft + _a.trimW +5) / _a.originalW).toFixed(7) + ',\t';
+        _r += (1 * (_a.trimTop + _a.trimH+5) / _a.originalH).toFixed(7) + ',\t';
+        // _r += (calcScale * _a.originalW / masterBaseSize).toFixed(7) + ',\t';
+        _r += (calcScale * _a.originalH / masterBaseSize).toFixed(7) + ',// no.'+ (u) + '\t' + _a.name +'　'+_a.originalW+'/'+masterBaseSize+' \n';
 
       }
 
