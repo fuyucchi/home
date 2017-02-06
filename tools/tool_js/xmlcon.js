@@ -95,7 +95,7 @@ function handleFileSelect(evt) {
               var _ww = _tempStr[10][4] * 2;
               _w.trimLeft = (_w.originalW - _w.trimW) /2 + _ww;
               var _hh = _tempStr[10][5] * 2;
-              _w.trimTop = (_w.originalH - _w.trimH) /2 + _hh;
+              _w.trimTop = (_w.originalH - _w.trimH) /2 - _hh;// なんで逆やねん！ cocosStudio!!
 
               plistArr.push(_w);
           });
