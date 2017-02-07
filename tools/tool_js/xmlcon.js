@@ -83,11 +83,11 @@ function handleFileSelect(evt) {
               $.each(_tempStr[2].split(','), function(index, elem) {
                 _tempStr[10].push(Number(elem));//6,7
               });
-              _w.offsetX = parseInt(_tempStr[10][0] * 2);
-              _w.offsetY = parseInt(_tempStr[10][1] * 2);
+              _w.offsetX = parseInt(_tempStr[10][0] * 2) - 9;
+              _w.offsetY = parseInt(_tempStr[10][1] * 2) - 9;
 
-              _w.trimW = parseInt(_tempStr[10][2] * 2);//uv上の幅
-              _w.trimH = parseInt(_tempStr[10][3] * 2);
+              _w.trimW = parseInt(_tempStr[10][2] * 2) + 18;//uv上の幅
+              _w.trimH = parseInt(_tempStr[10][3] * 2) + 18;
 
               _w.originalW = parseInt(_tempStr[10][6] * 2);// 必ず正方形で使うこと
               _w.originalH = parseInt(_tempStr[10][7] * 2);
@@ -108,10 +108,10 @@ function handleFileSelect(evt) {
             // ((_a.offsetX - _a.trimLeft) / masterBaseSize).toFixed(7)
             _r += (calcScale * (_a.offsetX - _a.trimLeft) / masterBaseSize).toFixed(7) + ',\t';
             _r += (calcScale * (_a.offsetY - _a.trimTop) / masterBaseSize).toFixed(7) + ',\t';
-            _r += (1 * (_a.trimLeft-5) / _a.originalW).toFixed(7) + ',\t';
-            _r += (1 * (_a.trimTop-5) / _a.originalH).toFixed(7) + ',\t';
-            _r += (1 * (_a.trimLeft + _a.trimW +5) / _a.originalW).toFixed(7) + ',\t';
-            _r += (1 * (_a.trimTop + _a.trimH+5) / _a.originalH).toFixed(7) + ',\t';
+            _r += (1 * (_a.trimLeft) / _a.originalW).toFixed(7) + ',\t';
+            _r += (1 * (_a.trimTop) / _a.originalH).toFixed(7) + ',\t';
+            _r += (1 * (_a.trimLeft + _a.trimW) / _a.originalW).toFixed(7) + ',\t';
+            _r += (1 * (_a.trimTop + _a.trimH) / _a.originalH).toFixed(7) + ',\t';
             // _r += (calcScale * _a.originalW / masterBaseSize).toFixed(7) + ',\t';
             _r += (calcScale * _a.originalH / masterBaseSize).toFixed(7) + ',// no.'+ (u) + '\t' + _a.name +'　'+_a.originalW+'/'+masterBaseSize+' \n';
 
