@@ -45,6 +45,8 @@ function handleFileSelect(evt) {
         var inputAllSize = parseInt(document.output.baseSQ.value);
         var inputBaseUnitSize = parseInt(document.output.unitsize.value);// ユニットサイズ　無視
 
+        var thisTextureNumber =parseInt(document.output.txNum.value);//// テクスチャーナンバー
+
 
         var masterBaseSize = 4096 * 2;//parseInt( $x.attr('width'));//8192で換算
 
@@ -52,6 +54,7 @@ function handleFileSelect(evt) {
         calcScale =1;// 割合なので、強制的に 1に
 
         var _r = "";
+        var _rtx = "";
 
         if(_readTypeIsPlist){
 
@@ -61,7 +64,7 @@ function handleFileSelect(evt) {
           $pp.children('key').each(function() {
               _v = $(this);
               var _w = {};
-              _w.name = _v.text();
+              _w.name = _v.text().replace('.png', '');
 
 
               var _tempStr = [];
@@ -99,6 +102,12 @@ function handleFileSelect(evt) {
 
               plistArr.push(_w);
           });
+
+
+          plistArr.sort(comareName);
+
+
+
           _r += "//SQoffsetX  \tSQoffsetY  \ttrimLeft/u  \ttrimTop/v  \ttrimLeft+trimW/u\ttrimTop+trimH/v\t/orojinalWH/all\t_count=" + ((plistArr.length * 7)) + ';\n\n';
 
           for (var u =0; u<plistArr.length; u++){
@@ -113,9 +122,15 @@ function handleFileSelect(evt) {
             _r += (1 * (_a.trimLeft + _a.trimW) / _a.originalW).toFixed(7) + ',\t';
             _r += (1 * (_a.trimTop + _a.trimH) / _a.originalH).toFixed(7) + ',\t';
             // _r += (calcScale * _a.originalW / masterBaseSize).toFixed(7) + ',\t';
-            _r += (calcScale * _a.originalH / masterBaseSize).toFixed(7) + ',// no.'+ (u) + '\t' + _a.name +'　'+_a.originalW+'/'+masterBaseSize+' \n';
+            _r += (calcScale * _a.originalH / masterBaseSize).toFixed(7) + ',// no.'+ (u) + ' \t' + _a.name +'　'+_a.originalW+'/'+masterBaseSize+' \n';
 
+
+
+            _rtx += thisTextureNumber + ',//\tno.' + (u) + ' \t' + _a.name + '\n';
           }
+
+
+
 
 
         }else{
@@ -201,13 +216,22 @@ function handleFileSelect(evt) {
       //テキストエリアに表示する
       document.output.txt1.value = _r;
 
-
+      document.output.txt2.value = _rtx;
 
       ///
     }
 
     return false
 }
+
+function comareName(a, b) {
+	var nameA = a.name.toLowerCase();
+	var nameB = b.name.toLowerCase();
+	if (nameA < nameB) {return -1}
+	if (nameA > nameB) {return 1}
+	return 0;
+}
+
 
 function handleDragEnter(evt) {
     evt.stopPropagation();
